@@ -56,18 +56,18 @@ public class HibiActivity extends AppCompatActivity {
         webSettings.setSupportZoom(true);
         webSettings.setDefaultTextEncodingName("utf-8");
 
-        webView.loadUrl("https://hib.iiit-bh.ac.in/Hibiscus/Login/?client=iiit&sub=OK");
+        webView.loadUrl("https://hib.iiit-bh.ac.in/m-ums-2.0/start/login/?client=iiit");
 
-        final String fail_login1 = "https://hib.iiit-bh.ac.in/Hibiscus/Login/" +
-                                  "?client=iiit&mes=UserID_or_Password_Incorrect";
-        final String fail_login2 = "https://hib.iiit-bh.ac.in/Hibiscus/Login/" +
-                              "?client=iiit&mes=UserID_or_Password_or_A_Incorrect";
+        final String fail_login1 = "https://hib.iiit-bh.ac.in/m-ums-2.0/start/login/?" +
+                                   "client=iiit&mes=UserID_or_Password_Incorrect";
+//        final String fail_login2 = "https://hib.iiit-bh.ac.in/Hibiscus/Login/" +
+//                              "?client=iiit&mes=UserID_or_Password_or_A_Incorrect";
 
         final String js = "javascript:document.getElementsByName('uid')[0].value='"+username+
                           "';document.getElementsByName('pwd')[0].value='"+password+
                           "';var str=document.getElementById('txtCaptchaDiv').innerHTML;" +
                           "str=str.slice(0,-7);document.getElementsByName('txtInput')[0]" +
-                          ".value=eval(str);document.getElementsByName('sub')[0].click();";
+                          ".value=eval(str);document.getElementsByTagName('button')[0].click();";
 
         webView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
@@ -77,7 +77,7 @@ public class HibiActivity extends AppCompatActivity {
                         @Override
                         public void onReceiveValue(String s) {
                             Log.d("RECEIVE_STR", s);
-                            if(url_resp.equals(fail_login1) || url_resp.equals(fail_login2)) {
+                            if(url_resp.equals(fail_login1)) {
                                 SharedPreferences.Editor editor = shared_pref.edit();
                                 editor.putString("student_id", "");
                                 editor.putString("password", "");
